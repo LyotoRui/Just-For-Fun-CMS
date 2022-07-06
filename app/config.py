@@ -1,6 +1,30 @@
+from datetime import timedelta
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
 SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = True
+TESTING = False
+
+PERMANENT_SESSION_LIFETIME = timedelta(minutes=30)
+
+# Database config
+DATABASE_HOST = os.getenv('DATABASE_HOST')
+DATABASE_PORT = os.getenv('DATABASE_PORT')
+DATABASE_NAME = os.getenv('DATABASE_NAME')
+DATABASE_LOGIN = os.getenv('DATABASE_LOGIN')
+DATABASE_PASSWORD = os.getenv('DATABASE_PASSWORD')
+SQLALCHEMY_DATABASE_URI = f'postgresql+psycopg2://{DATABASE_LOGIN}:{DATABASE_PASSWORD}@{DATABASE_HOST}:{DATABASE_PORT}/{DATABASE_NAME}'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+# SMTP config
+MAIL_SERVER = os.getenv('MAIL_SERVER')
+MAIL_PORT = os.getenv('MAIL_PORT')
+MAIL_USE_TLS = False
+MAIL_USE_SSL = False
+MAIL_USERNAME = os.getenv('MAIL_USERNAME')
+MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
+MAIL_DEFAULT_SENDER = None
+MAIL_MAX_EMAILS = None  
