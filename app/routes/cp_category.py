@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request
 
-cp_category = Blueprint("cp_category", __name__, url_prefix="category")
+cp_category = Blueprint("cp_category", __name__, url_prefix="categories")
 
 
 @cp_category.route("/<int:id>", methods=["GET", "POST"])
