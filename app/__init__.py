@@ -4,23 +4,40 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from loguru import logger
 
-logger.add('debug.log', level='ERROR', format='{time:HH:mm:ss!UTC} {level} {message}', rotation='10 KB', compression='zip')
+from .routes.control_panel import control_panel
+from .routes.cp_auth import cp_auth
+from .routes.cp_product import cp_product
+from .routes.cp_category import cp_category
+from .routes.cp_settings import cp_settings
+
+logger.add(
+    "debug.log",
+    level="ERROR",
+    format="{time:HH:mm:ss!UTC} {level} {message}",
+    rotation="10 KB",
+    compression="zip",
+)
 
 
 def register_blueprints(app: Flask) -> None:
-    pass
+    control_panel.register_blueprint(cp_auth)
+    control_panel.register_blueprint(cp_product)
+    control_panel.register_blueprint(cp_category)
+    control_panel.register_blueprint(cp_settings)
+    app.register_blueprint(control_panel, url_prefix="/cp")
+
 
 def create_app() -> Flask:
     app = Flask(__name__)
-    app.config.from_pyfile(filename='config.py', silent=False)
+    app.config.from_pyfile(filename="config.py", silent=False)
     register_blueprints(app=app)
     return app
 
-def init_mail(app: Flask) -> Mail:
-    return Mail(app=app)
 
-def init_db(app: Flask) -> SQLAlchemy:
-    return SQLAlchemy(app=app)
+app = create_app()
 
-def init_migrate(app: Flask, db: SQLAlchemy) -> Migrate:
-    return Migrate(app=app, db=db)
+db = SQLAlchemy(app=app)
+
+mail = Mail(app=app)
+
+migrate = Migrate(app=app, db=db)
