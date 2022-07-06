@@ -1,6 +1,6 @@
-from app import init, init_app
+from app import create_app
 
-app = init()
+app = create_app()
 
-if __name__ == '__name__':
-    app.run()
+if __name__ == '__main__':
+    app.run(debug=True)
