@@ -20,4 +20,7 @@ class Product(db.Model):
         self.is_avaliable = is_avaliable
         self.parent_category = parent_category
         self.description = description
+    
+    def __repr__(self) -> str:
+        return f'Product {self.id}'
 

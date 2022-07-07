@@ -15,6 +15,8 @@ class Order(db.Model):
     def __init__(self, id: int, timestamp: datetime, is_fast: bool, customer_id: int, products: JSON) -> None:
         self.id = id
         self.timestamp = timestamp
+        self.is_fast = is_fast
+        self.customer_id = customer_id
         self.products = products
 
     def __repr__(self) -> str:
