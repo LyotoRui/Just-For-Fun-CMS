@@ -34,6 +34,15 @@ def create_app() -> Flask:
     return app
 
 
+def create_db_tables() -> None:
+    from .models.user import User
+    from .models.product import Product
+    from .models.category import Category
+    from .models.customer import Customer
+    from .models.order import Order
+    db.create_all()
+
+
 app = create_app()
 
 db = SQLAlchemy(app=app)
