@@ -14,7 +14,10 @@ logger.add(
 
 
 def register_blueprints(app: Flask) -> None:
-    pass
+    from .routes.control_panel import control_panel
+    from .routes.cp_auth import auth
+    control_panel.register_blueprint(auth)
+    app.register_blueprint(control_panel)
 
 
 def create_app() -> Flask:
